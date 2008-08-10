@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Audacious
+Comment=Play music
+Comment[hu]=Zene lejátszása
+Exec=audacious
+Icon=audacious.png
+MimeType=audio/aac;
+Categories=GTK;AudioVideo;Player;
+Terminal=false
+Type=Application
+Encoding=UTF-8
+X-Desktop-File-Install-Version=0.10
+NoDisplay=true
