@@ -1,9 +1,9 @@
 %define         aud_ver 1.4.0
 
-Name:           audacious-plugins-nonfree
+Name:           audacious-plugins-freeworld
 Version:        1.4.5
-Release:        1%{?dist}
-Summary:        Nonfree plugins for the Audacious media player
+Release:        2%{?dist}
+Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
 License:        GPLv2
@@ -23,6 +23,18 @@ BuildRequires:  lame-devel, libmms-devel, libmad-devel
 BuildRequires:  gettext, libbinio-devel
 BuildRequires:  dbus-devel >= 0.60, dbus-glib-devel >= 0.60
 
+# require all the plugins
+Requires:       %{name}-mp3 = %{version}-%{release}
+Requires:       %{name}-aac = %{version}-%{release}
+Requires:       %{name}-wma = %{version}-%{release}
+Requires:       %{name}-alac = %{version}-%{release}
+Requires:       %{name}-tta = %{version}-%{release}
+Requires:       %{name}-mms = %{version}-%{release}
+
+# obsolete old freshrpms package
+Provides:       audacious-plugins-extras = %{version}-%{release}
+Obsoletes:      audacious-plugins-extras < %{version}-%{release}
+
 %description
 Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
@@ -38,6 +50,10 @@ Requires(postun): desktop-file-utils >= 0.9
 
 Provides:       bmp-mp3 = 0.9.7.1
 Obsoletes:      bmp-mp3 <= 0.9.7.1
+
+# obsolete old livna package
+Provides:       audacious-plugins-nonfree-mp3 = %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-mp3 < %{version}-%{release}
 
 %description    mp3
 Audacious is a media player that currently uses a skinned
@@ -55,6 +71,10 @@ Requires:       audacious-plugins >= %{aud_ver}
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
 
+# obsolete old livna package
+Provides:       audacious-plugins-nonfree-aac = %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-aac < %{version}-%{release}
+
 %description    aac
 Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
@@ -70,6 +90,10 @@ Requires:       audacious-plugins >= %{aud_ver}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
+
+# obsolete old livna package
+Provides:       audacious-plugins-nonfree-wma = %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-wma < %{version}-%{release}
 
 %description    wma
 Audacious is a media player that currently uses a skinned
@@ -87,6 +111,10 @@ Requires:       audacious-plugins >= %{aud_ver}
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
 
+# obsolete old livna package
+Provides:       audacious-plugins-nonfree-alac = %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-alac < %{version}-%{release}
+
 %description    alac
 Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
@@ -100,6 +128,10 @@ Summary:        TTA playback plugin for Audacious
 Group:          Applications/Multimedia
 Requires:       audacious-plugins >= %{aud_ver}
 
+# obsolete old livna package
+Provides:       audacious-plugins-nonfree-tta = %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-tta < %{version}-%{release}
+
 %description    tta
 Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
@@ -111,6 +143,10 @@ This is the plugin needed to play TTA audio files.
 Summary:        MMS stream plugin for Audacious
 Group:          Applications/Multimedia
 Requires:       audacious-plugins >= %{aud_ver}
+
+# obsolete old livna package
+Provides:       audacious-plugins-nonfree-mms = %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-mms < %{version}-%{release}
 
 %description    mms
 Audacious is a media player that currently uses a skinned
@@ -215,6 +251,10 @@ update-desktop-database %{_datadir}/applications
 update-desktop-database %{_datadir}/applications
 
 
+%files
+%defattr(-,root,root,-)
+%doc COPYING
+
 %files mp3
 %defattr(-,root,root,-)
 %{_libdir}/audacious/Input/madplug.so
@@ -244,6 +284,11 @@ update-desktop-database %{_datadir}/applications
 %{_libdir}/audacious/Transport/mms.so
 
 %changelog
+* Sun Oct 19 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 1.4.5-2
+- obsolete nonfree -plugins from livna 
+- add metapackage that requires all the plugins and obsoletes the 
+ -extras package from freshrpms
+
 * Tue Feb 12 2008 Ralf Ertzinger <ralf@skytale.net> 1.4.5-1
 - Update to 1.4.5
 
