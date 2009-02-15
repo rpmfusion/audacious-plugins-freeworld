@@ -1,19 +1,18 @@
-%define         aud_ver 1.4.0
+%define         aud_ver 1.5.0
 
 Name:           audacious-plugins-freeworld
-Version:        1.4.5
-Release:        2%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
 License:        GPLv2
 URL:            http://audacious-media-player.org/
-Source0:        http://static.audacious-media-player.org/release/audacious-plugins-%{version}.tgz
+Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}.tgz
 Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
 Source3:        audacious-wma.desktop
 Source4:        audacious-alac.desktop
-Patch0:         audacious-plugins-1.3.4-sse-disable.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  audacious-devel >= %{aud_ver}
@@ -159,8 +158,6 @@ This is the plugin needed to access MMS streams.
 %prep
 %setup -q -n audacious-plugins-%{version}
 
-# Disable SSE2/AltiVec
-# %patch0 -p1 -b .sse-disable
 
 %build
 %configure \
@@ -284,6 +281,9 @@ update-desktop-database %{_datadir}/applications
 %{_libdir}/audacious/Transport/mms.so
 
 %changelog
+* Sun Feb 15 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 1.5.1-1
+- Update to 1.5.1
+
 * Sun Oct 19 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 1.4.5-2
 - obsolete nonfree -plugins from livna 
 - add metapackage that requires all the plugins and obsoletes the 
