@@ -2,7 +2,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -281,6 +281,9 @@ update-desktop-database %{_datadir}/applications
 %{_libdir}/audacious/Transport/mms.so
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.5.1-2
+- rebuild for new F11 features
+
 * Sun Feb 15 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 1.5.1-1
 - Update to 1.5.1
 
