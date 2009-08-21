@@ -1,12 +1,12 @@
-%define         aud_ver 1.5.0
+%define         aud_ver 2.1
 
 Name:           audacious-plugins-freeworld
-Version:        1.5.1
-Release:        2%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
-License:        GPLv2
+License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}.tgz
 Source1:        audacious-mp3.desktop
@@ -162,25 +162,7 @@ This is the plugin needed to access MMS streams.
 %build
 %configure \
         --disable-rpath \
-        --enable-gconf \
-        --disable-gnome-vfs \
         --enable-chardet \
-        --disable-amidiplug \
-        --disable-adplug \
-        --disable-esd \
-        --disable-lirc \
-        --disable-sndfile \
-        --disable-modplug \
-        --disable-flac \
-        --disable-jack \
-        --disable-arts \
-        --disable-sid \
-        --disable-alsa \
-        --disable-musepack \
-        --disable-timidity \
-        --disable-vorbis \
-        --disable-xspf \
-        --disable-paranormal \
         --disable-sse2 \
         --disable-altivec \
         --disable-dependency-tracking
