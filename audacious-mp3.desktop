@@ -8,6 +8,4 @@ MimeType=audio/mpeg;
 Categories=GTK;AudioVideo;Player;
 Terminal=false
 Type=Application
-Encoding=UTF-8
-X-Desktop-File-Install-Version=0.10
 NoDisplay=true
