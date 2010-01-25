@@ -1,8 +1,13 @@
-%define         aud_ver 2.1
+# TODO:
+# - add more mime types to .desktop file for 'ffaudio' plugin
+# - add BR sidplay2-devel and find a way to make the built sid.so
+#   plugin an alternative to Fedora's sidplay1 based sid.so
+
+%define         aud_ver 2.2
 
 Name:           audacious-plugins-freeworld
-Version:        2.1
-Release:        1%{?dist}
+Version:        2.2
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -11,8 +16,9 @@ URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}.tgz
 Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
-Source3:        audacious-wma.desktop
-Source4:        audacious-alac.desktop
+Source3:        audacious-ffaudio.desktop
+Patch0:         audacious-plugins-2.2-m4a.patch
+Patch1:         audacious-plugins-2.2-madplug.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  audacious-devel >= %{aud_ver}
@@ -21,14 +27,14 @@ BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  lame-devel, libmms-devel, libmad-devel
 BuildRequires:  gettext, libbinio-devel
 BuildRequires:  dbus-devel >= 0.60, dbus-glib-devel >= 0.60
+# ffaudio plugin
+BuildRequires:  faad2-devel ffmpeg-devel
 
 # require all the plugins
 Requires:       %{name}-mp3 = %{version}-%{release}
 Requires:       %{name}-aac = %{version}-%{release}
-Requires:       %{name}-wma = %{version}-%{release}
-Requires:       %{name}-alac = %{version}-%{release}
-Requires:       %{name}-tta = %{version}-%{release}
 Requires:       %{name}-mms = %{version}-%{release}
+Requires:       %{name}-ffaudio = %{version}-%{release}
 
 # obsolete old freshrpms package
 Provides:       audacious-plugins-extras = %{version}-%{release}
@@ -39,6 +45,9 @@ Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
 BMP.
 
+This package contains additional plugins for the Audacious media player.
+
+
 %package        mp3
 Summary:        MP3 playback plugin for Audacious
 Group:          Applications/Multimedia
@@ -46,9 +55,6 @@ Requires:       audacious-plugins >= %{aud_ver}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
-
-Provides:       bmp-mp3 = 0.9.7.1
-Obsoletes:      bmp-mp3 <= 0.9.7.1
 
 # obsolete old livna package
 Provides:       audacious-plugins-nonfree-mp3 = %{version}-%{release}
@@ -82,60 +88,26 @@ BMP.
 This is the plugin needed to play AAC audio files.
 
 
-%package        wma
-Summary:        WMA playback plugin for Audacious
-Group:          Applications/Multimedia
-Requires:       audacious-plugins >= %{aud_ver}
+%package ffaudio
+Summary: FFMpeg/FAAD2 based input plugin for Audacious
+Group: Applications/Multimedia
+Requires: audacious-plugins >= %{aud_ver}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
 
-# obsolete old livna package
-Provides:       audacious-plugins-nonfree-wma = %{version}-%{release}
-Obsoletes:      audacious-plugins-nonfree-wma < %{version}-%{release}
+# obsolete discontinued plugins
+Obsoletes: audacious-plugins-freeworld-alac <= 2.1
+Obsoletes: audacious-plugins-freeworld-tta <= 2.1
+Obsoletes: audacious-plugins-freeworld-wma <= 2.1
 
-%description    wma
-Audacious is a media player that currently uses a skinned
-user interface based on Winamp 2.x skins. It is based on ("forked off")
-BMP.
+# obsolete old livna packages
+Obsoletes: audacious-plugins-nonfree-alac < %{version}-%{release}
+Obsoletes: audacious-plugins-nonfree-tta < %{version}-%{release}
+Obsoletes: audacious-plugins-nonfree-wma < %{version}-%{release}
 
-This is the plugin needed to play WMA audio files.
-
-
-%package        alac
-Summary:        ALAC playback plugin for Audacious
-Group:          Applications/Multimedia
-Requires:       audacious-plugins >= %{aud_ver}
-
-Requires(post):  desktop-file-utils >= 0.9
-Requires(postun): desktop-file-utils >= 0.9
-
-# obsolete old livna package
-Provides:       audacious-plugins-nonfree-alac = %{version}-%{release}
-Obsoletes:      audacious-plugins-nonfree-alac < %{version}-%{release}
-
-%description    alac
-Audacious is a media player that currently uses a skinned
-user interface based on Winamp 2.x skins. It is based on ("forked off")
-
-This is the plugin needed to play ALAC (Apple Lossless Audio Codec)
-audio files.
-
-
-%package        tta
-Summary:        TTA playback plugin for Audacious
-Group:          Applications/Multimedia
-Requires:       audacious-plugins >= %{aud_ver}
-
-# obsolete old livna package
-Provides:       audacious-plugins-nonfree-tta = %{version}-%{release}
-Obsoletes:      audacious-plugins-nonfree-tta < %{version}-%{release}
-
-%description    tta
-Audacious is a media player that currently uses a skinned
-user interface based on Winamp 2.x skins. It is based on ("forked off")
-
-This is the plugin needed to play TTA audio files.
+%description ffaudio
+FFMpeg/FAAD2 based input plugin for Audacious.
 
 
 %package        mms
@@ -157,6 +129,9 @@ This is the plugin needed to access MMS streams.
 
 %prep
 %setup -q -n audacious-plugins-%{version}
+%patch0 -p1
+%patch1 -p1
+sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 
 %build
@@ -168,9 +143,7 @@ This is the plugin needed to access MMS streams.
         --disable-dependency-tracking
 make V=1 %{?_smp_mflags} -C src/madplug
 make V=1 %{?_smp_mflags} -C src/aac
-make V=1 %{?_smp_mflags} -C src/wma
-make V=1 %{?_smp_mflags} -C src/alac
-make V=1 %{?_smp_mflags} -C src/tta
+make V=1 %{?_smp_mflags} -C src/ffaudio
 make V=1 %{?_smp_mflags} -C src/mms
 
 
@@ -178,9 +151,7 @@ make V=1 %{?_smp_mflags} -C src/mms
 rm -rf $RPM_BUILD_ROOT
 make -C src/madplug install DESTDIR=$RPM_BUILD_ROOT
 make -C src/aac install DESTDIR=$RPM_BUILD_ROOT
-make -C src/wma install DESTDIR=$RPM_BUILD_ROOT
-make -C src/alac install DESTDIR=$RPM_BUILD_ROOT
-make -C src/tta install DESTDIR=$RPM_BUILD_ROOT
+make -C src/ffaudio install DESTDIR=$RPM_BUILD_ROOT
 make -C src/mms install DESTDIR=$RPM_BUILD_ROOT
 
 desktop-file-install --vendor livna \
@@ -191,15 +162,12 @@ desktop-file-install --vendor livna \
     --dir $RPM_BUILD_ROOT%{_datadir}/applications   \
     %{SOURCE2}
 
-desktop-file-install --vendor livna \
+desktop-file-install --vendor "" \
     --dir $RPM_BUILD_ROOT%{_datadir}/applications   \
     %{SOURCE3}
 
-desktop-file-install --vendor livna \
-    --dir $RPM_BUILD_ROOT%{_datadir}/applications   \
-    %{SOURCE4}
-
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -217,16 +185,10 @@ update-desktop-database %{_datadir}/applications
 %postun aac
 update-desktop-database %{_datadir}/applications
 
-%post wma
+%post ffaudio
 update-desktop-database %{_datadir}/applications
 
-%postun wma
-update-desktop-database %{_datadir}/applications
-
-%post alac
-update-desktop-database %{_datadir}/applications
-
-%postun alac
+%postun ffaudio
 update-desktop-database %{_datadir}/applications
 
 
@@ -244,25 +206,23 @@ update-desktop-database %{_datadir}/applications
 %{_libdir}/audacious/Input/aac.so
 %{_datadir}/applications/livna-audacious-aac.desktop
 
-%files wma
+%files ffaudio
 %defattr(-,root,root,-)
-%{_libdir}/audacious/Input/wma.so
-%{_datadir}/applications/livna-audacious-wma.desktop
-
-%files alac
-%defattr(-,root,root,-)
-%{_libdir}/audacious/Input/alac.so
-%{_datadir}/applications/livna-audacious-alac.desktop
-
-%files tta
-%defattr(-,root,root,-)
-%{_libdir}/audacious/Input/tta.so
+%{_libdir}/audacious/Input/ffaudio.so
+%{_datadir}/applications/audacious-ffaudio.desktop
 
 %files mms
 %defattr(-,root,root,-)
 %{_libdir}/audacious/Transport/mms.so
 
+
 %changelog
+* Mon Jan 25 2010 Hans de Goede <j.w.r.degoede@hhs.nl> 2.2-2
+- Don't hang when trying to identify unknown files as mp3 files (rf1031)
+
+* Sat Dec 19 2009 Hans de Goede <j.w.r.degoede@hhs.nl> 2.2-1
+- Update to 2.2
+
 * Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.5.1-2
 - rebuild for new F11 features
 
