@@ -7,7 +7,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -18,6 +18,7 @@ Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
 Source3:        audacious-ffaudio.desktop
 Patch0:         audacious-plugins-2.2-m4a.patch
+Patch1:         audacious-plugins-2.2-madplug.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  audacious-devel >= %{aud_ver}
@@ -129,6 +130,7 @@ This is the plugin needed to access MMS streams.
 %prep
 %setup -q -n audacious-plugins-%{version}
 %patch0 -p1
+%patch1 -p1
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 
@@ -215,6 +217,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Mon Jan 25 2010 Hans de Goede <j.w.r.degoede@hhs.nl> 2.2-2
+- Don't hang when trying to identify unknown files as mp3 files (rf1031)
+
 * Sat Dec 19 2009 Hans de Goede <j.w.r.degoede@hhs.nl> 2.2-1
 - Update to 2.2
 
