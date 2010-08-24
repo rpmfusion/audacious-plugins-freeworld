@@ -3,29 +3,30 @@
 # - add BR sidplay2-devel and find a way to make the built sid.so
 #   plugin an alternative to Fedora's sidplay1 based sid.so
 
-%define         aud_ver 2.2
+%global         aud_ver 2.4
+%global         extra_ver rc2
 
 Name:           audacious-plugins-freeworld
-Version:        2.2
-Release:        3%{?dist}
+Version:        2.4
+Release:        0.1.%{extra_ver}%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
 License:        GPLv3
 URL:            http://audacious-media-player.org/
-Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}.tgz
+Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}-%{extra_ver}.tgz
 Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
 Source3:        audacious-ffaudio.desktop
-Patch0:         audacious-plugins-2.2-m4a.patch
-Patch1:         audacious-plugins-2.2-madplug.patch
-Patch2:         audacious-plugins-2.2-madplug-hang.patch
+Patch0:         audacious-plugins-2.4-sys-mpg123.patch
+Patch1:         audacious-plugins-2.4-aac-seek.patch
+Patch2:         audacious-plugins-2.4-ffaudio-metadata.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  audacious-devel >= %{aud_ver}
 BuildRequires:  zlib-devel, desktop-file-utils >= 0.9
 BuildRequires:  taglib-devel >= 1.4
-BuildRequires:  lame-devel, libmms-devel, libmad-devel
+BuildRequires:  libmms-devel, libmpg123-devel
 BuildRequires:  gettext, libbinio-devel
 BuildRequires:  dbus-devel >= 0.60, dbus-glib-devel >= 0.60
 # ffaudio plugin
@@ -129,7 +130,9 @@ This is the plugin needed to access MMS streams.
 
 
 %prep
-%setup -q -n audacious-plugins-%{version}
+%setup -q -n audacious-plugins-%{version}-%{extra_ver}
+# We want to use the system mpg123
+rm -r src/mpg123/libmpg123
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -143,7 +146,7 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
         --disable-sse2 \
         --disable-altivec \
         --disable-dependency-tracking
-make V=1 %{?_smp_mflags} -C src/madplug
+make V=1 %{?_smp_mflags} -C src/mpg123
 make V=1 %{?_smp_mflags} -C src/aac
 make V=1 %{?_smp_mflags} -C src/ffaudio
 make V=1 %{?_smp_mflags} -C src/mms
@@ -151,7 +154,7 @@ make V=1 %{?_smp_mflags} -C src/mms
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -C src/madplug install DESTDIR=$RPM_BUILD_ROOT
+make -C src/mpg123 install DESTDIR=$RPM_BUILD_ROOT
 make -C src/aac install DESTDIR=$RPM_BUILD_ROOT
 make -C src/ffaudio install DESTDIR=$RPM_BUILD_ROOT
 make -C src/mms install DESTDIR=$RPM_BUILD_ROOT
@@ -219,6 +222,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Tue Aug 24 2010 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4-0.1.rc2
+- Update to 2.4-rc2
+
 * Fri Jan 29 2010 Hans de Goede <j.w.r.degoede@hhs.nl> 2.2-3
 - Fix another hang in the madplug plugin (rf1061)
 
