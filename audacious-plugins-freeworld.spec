@@ -24,7 +24,7 @@ Patch2:         audacious-plugins-2.4-ffaudio-metadata.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  audacious-devel >= %{aud_ver}
-BuildRequires:  zlib-devel, desktop-file-utils >= 0.9
+BuildRequires:  zlib-devel, libxml2-devel, desktop-file-utils >= 0.9
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel, libmpg123-devel
 BuildRequires:  gettext, libbinio-devel
