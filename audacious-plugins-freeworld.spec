@@ -4,17 +4,16 @@
 #   plugin an alternative to Fedora's sidplay1 based sid.so
 
 %global         aud_ver 2.4
-%global         extra_ver rc2
 
 Name:           audacious-plugins-freeworld
-Version:        2.4
-Release:        0.1.%{extra_ver}%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
 License:        GPLv3
 URL:            http://audacious-media-player.org/
-Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}-%{extra_ver}.tgz
+Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}.tgz
 Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
 Source3:        audacious-ffaudio.desktop
@@ -130,7 +129,7 @@ This is the plugin needed to access MMS streams.
 
 
 %prep
-%setup -q -n audacious-plugins-%{version}-%{extra_ver}
+%setup -q -n audacious-plugins-%{version}
 # We want to use the system mpg123
 rm -r src/mpg123/libmpg123
 %patch0 -p1
@@ -222,6 +221,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Sun Aug 29 2010 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4.0-1
+- Update to 2.4.0
+
 * Tue Aug 24 2010 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4-0.1.rc2
 - Update to 2.4-rc2
 
