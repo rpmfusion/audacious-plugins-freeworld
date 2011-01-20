@@ -3,10 +3,10 @@
 # - add BR sidplay2-devel and find a way to make the built sid.so
 #   plugin an alternative to Fedora's sidplay1 based sid.so
 
-%global         aud_ver 2.4
+%global         aud_ver 2.4.3
 
 Name:           audacious-plugins-freeworld
-Version:        2.4.0
+Version:        2.4.3
 Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
@@ -18,8 +18,7 @@ Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
 Source3:        audacious-ffaudio.desktop
 Patch0:         audacious-plugins-2.4-sys-mpg123.patch
-Patch1:         audacious-plugins-2.4-aac-seek.patch
-Patch2:         audacious-plugins-2.4-ffaudio-metadata.patch
+Patch1:         audacious-plugins-2.4-ffaudio-metadata.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  audacious-devel >= %{aud_ver}
@@ -134,7 +133,6 @@ This is the plugin needed to access MMS streams.
 rm -r src/mpg123/libmpg123
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 
@@ -221,6 +219,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Thu Jan 20 2011 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4.3-1
+- Update to 2.4.3
+
 * Sun Aug 29 2010 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4.0-1
 - Update to 2.4.0
 
