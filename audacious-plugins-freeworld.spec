@@ -51,7 +51,9 @@ This package contains additional plugins for the Audacious media player.
 %package        mp3
 Summary:        MP3 playback plugin for Audacious
 Group:          Applications/Multimedia
+%if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
 Requires:       audacious(plugin-api) = %{aud_plugin_api}
+%endif
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
@@ -71,7 +73,9 @@ This is the plugin needed to play MP3 audio files.
 %package        aac
 Summary:        AAC playback plugin for Audacious
 Group:          Applications/Multimedia
+%if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
 Requires:       audacious(plugin-api) = %{aud_plugin_api}
+%endif
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
@@ -91,7 +95,9 @@ This is the plugin needed to play AAC audio files.
 %package ffaudio
 Summary: FFMpeg/FAAD2 based input plugin for Audacious
 Group: Applications/Multimedia
-Requires: audacious(plugin-api) = %{aud_plugin_api}
+%if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
+Requires:       audacious(plugin-api) = %{aud_plugin_api}
+%endif
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
@@ -113,7 +119,9 @@ FFMpeg/FAAD2 based input plugin for Audacious.
 %package        mms
 Summary:        MMS stream plugin for Audacious
 Group:          Applications/Multimedia
+%if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
 Requires:       audacious(plugin-api) = %{aud_plugin_api}
+%endif
 
 # obsolete old livna package
 Provides:       audacious-plugins-nonfree-mms = %{version}-%{release}
