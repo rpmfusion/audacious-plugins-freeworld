@@ -7,7 +7,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        2.4.3
-Release:        1%{?dist}
+Release:        1%{?dist}.1
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -219,7 +219,7 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
-* Thu Jan 20 2011 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4.3-1
+* Fri Jan 28 2011 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4.3-1.fc14.1
 - Update to 2.4.3
 
 * Sun Aug 29 2010 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4.0-1
