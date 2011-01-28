@@ -3,11 +3,11 @@
 # - add BR sidplay2-devel and find a way to make the built sid.so
 #   plugin an alternative to Fedora's sidplay1 based sid.so
 
-%global         aud_ver 2.4.3
+%global         aud_plugin_api %(grep '[ ]*#define[ ]*__AUDACIOUS_PLUGIN_API__' %{_includedir}/audacious/plugin.h | sed 's!.*__AUDACIOUS_PLUGIN_API__[ ]*\\([0-9]\\+\\).*!\\1!')
 
 Name:           audacious-plugins-freeworld
 Version:        2.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -21,7 +21,7 @@ Patch0:         audacious-plugins-2.4-sys-mpg123.patch
 Patch1:         audacious-plugins-2.4-ffaudio-metadata.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  audacious-devel >= %{aud_ver}
+BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  zlib-devel, libxml2-devel, desktop-file-utils >= 0.9
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel, libmpg123-devel
@@ -51,7 +51,7 @@ This package contains additional plugins for the Audacious media player.
 %package        mp3
 Summary:        MP3 playback plugin for Audacious
 Group:          Applications/Multimedia
-Requires:       audacious-plugins >= %{aud_ver}
+Requires:       audacious(plugin-api) = %{aud_plugin_api}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
@@ -71,7 +71,7 @@ This is the plugin needed to play MP3 audio files.
 %package        aac
 Summary:        AAC playback plugin for Audacious
 Group:          Applications/Multimedia
-Requires:       audacious-plugins >= %{aud_ver}
+Requires:       audacious(plugin-api) = %{aud_plugin_api}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
@@ -91,7 +91,7 @@ This is the plugin needed to play AAC audio files.
 %package ffaudio
 Summary: FFMpeg/FAAD2 based input plugin for Audacious
 Group: Applications/Multimedia
-Requires: audacious-plugins >= %{aud_ver}
+Requires: audacious(plugin-api) = %{aud_plugin_api}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
@@ -113,7 +113,7 @@ FFMpeg/FAAD2 based input plugin for Audacious.
 %package        mms
 Summary:        MMS stream plugin for Audacious
 Group:          Applications/Multimedia
-Requires:       audacious-plugins >= %{aud_ver}
+Requires:       audacious(plugin-api) = %{aud_plugin_api}
 
 # obsolete old livna package
 Provides:       audacious-plugins-nonfree-mms = %{version}-%{release}
@@ -219,6 +219,10 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Fri Jan 28 2011 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4.3-2
+- Change audacious version require to use the new Fedora packages
+  audacious(plugin-api) provides, for proper detection of plugin ABI changes
+
 * Thu Jan 20 2011 Hans de Goede <j.w.r.degoede@hhs.nl> 2.4.3-1
 - Update to 2.4.3
 
