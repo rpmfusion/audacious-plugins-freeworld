@@ -92,9 +92,9 @@ BMP.
 This is the plugin needed to play AAC audio files.
 
 
-%package ffaudio
-Summary: FFMpeg/FAAD2 based input plugin for Audacious
-Group: Applications/Multimedia
+%package        ffaudio
+Summary:        FFMpeg/FAAD2 based input plugin for Audacious
+Group:          Applications/Multimedia
 %if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
 Requires:       audacious(plugin-api) = %{aud_plugin_api}
 %endif
@@ -103,14 +103,14 @@ Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
 
 # obsolete discontinued plugins
-Obsoletes: audacious-plugins-freeworld-alac <= 2.1
-Obsoletes: audacious-plugins-freeworld-tta <= 2.1
-Obsoletes: audacious-plugins-freeworld-wma <= 2.1
+Obsoletes:      audacious-plugins-freeworld-alac <= 2.1
+Obsoletes:      audacious-plugins-freeworld-tta <= 2.1
+Obsoletes:      audacious-plugins-freeworld-wma <= 2.1
 
 # obsolete old livna packages
-Obsoletes: audacious-plugins-nonfree-alac < %{version}-%{release}
-Obsoletes: audacious-plugins-nonfree-tta < %{version}-%{release}
-Obsoletes: audacious-plugins-nonfree-wma < %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-alac < %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-tta < %{version}-%{release}
+Obsoletes:      audacious-plugins-nonfree-wma < %{version}-%{release}
 
 %description ffaudio
 FFMpeg/FAAD2 based input plugin for Audacious.
