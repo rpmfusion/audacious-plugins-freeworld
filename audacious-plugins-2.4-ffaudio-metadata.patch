@@ -1,5 +1,6 @@
---- audacious-plugins-2.4-rc2/src/ffaudio/ffaudio-core.c	2010-08-13 23:01:12.000000000 +0200
-+++ audacious-plugins-2.4-rc2.new/src/ffaudio/ffaudio-core.c	2010-08-24 20:43:12.963479070 +0200
+diff -up audacious-plugins-2.4.4/src/ffaudio/ffaudio-core.c.orig audacious-plugins-2.4.4/src/ffaudio/ffaudio-core.c
+--- audacious-plugins-2.4.4/src/ffaudio/ffaudio-core.c.orig	2011-02-22 18:29:46.000000000 +0100
++++ audacious-plugins-2.4.4/src/ffaudio/ffaudio-core.c	2011-04-11 13:31:39.014243940 +0200
 @@ -31,6 +31,7 @@
  #ifdef FFAUDIO_USE_AUDTAG
  #include <audacious/audtag.h>
@@ -8,7 +9,7 @@
  
  /***********************************************************************************
   * Plugin glue.                                                                    *
-@@ -151,21 +152,21 @@
+@@ -155,21 +156,21 @@ typedef struct {
  } ffaudio_meta_t;
  
  static const ffaudio_meta_t metaentries[] = {
@@ -33,7 +34,7 @@
  static void
  ffaudio_get_meta(Tuple *tuple, AVFormatContext *ic, const ffaudio_meta_t *m)
  {
-@@ -202,18 +204,15 @@
+@@ -206,18 +207,15 @@ ffaudio_get_meta(Tuple *tuple, AVFormatC
          }
      }
  }
@@ -52,7 +53,7 @@
  
          tuple_associate_int(tuple, FIELD_LENGTH, NULL, ic->duration / 1000);
          tuple_associate_int(tuple, FIELD_BITRATE, NULL, ic->bit_rate / 1000);
-@@ -259,7 +258,6 @@
+@@ -263,7 +261,6 @@ static Tuple * read_tuple (const gchar *
      return tuple;
  }
  
@@ -60,13 +61,13 @@
  static Tuple *
  ffaudio_probe_for_tuple(const gchar *filename, VFSFile *fd)
  {
-@@ -267,12 +265,15 @@
+@@ -271,12 +268,15 @@ ffaudio_probe_for_tuple(const gchar *fil
      if (t == NULL)
          return NULL;
  
 +#ifdef FFAUDIO_USE_AUDTAG
-     vfs_fseek(fd, 0, SEEK_SET);
-     tag_tuple_read(t, fd);
+     if (! vfs_fseek (fd, 0, SEEK_SET))
+         tag_tuple_read (t, fd);
 +#endif
  
      return t;
@@ -76,7 +77,7 @@
  static gboolean ffaudio_write_tag (const Tuple * tuple, VFSFile * file)
  {
      gchar *file_uri = g_ascii_strdown(file->uri, -4);
-@@ -305,9 +306,6 @@
+@@ -309,9 +309,6 @@ static gboolean ffaudio_play (InputPlayb
      ReSampleContext *resctx = NULL;
      gboolean codec_opened = FALSE, do_resampling = FALSE;
      gint out_fmt;
@@ -86,7 +87,7 @@
      gboolean seekable;
  
      gchar uribuf[64];
-@@ -387,11 +385,6 @@
+@@ -397,11 +394,6 @@ static gboolean ffaudio_play (InputPlayb
      resbuf = av_malloc(AVCODEC_MAX_AUDIO_FRAME_SIZE);
  
      AUDDBG("setting parameters\n");
@@ -98,7 +99,7 @@
  
      if (pause)
          playback->output->pause(TRUE);
-@@ -682,9 +675,7 @@
+@@ -692,9 +684,7 @@ InputPlugin ffaudio_ip = {
      .init = ffaudio_init,
      .cleanup = ffaudio_cleanup,
      .is_our_file_from_vfs = ffaudio_probe,
