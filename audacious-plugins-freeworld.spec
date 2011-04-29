@@ -6,7 +6,7 @@
 %global         aud_plugin_api %(grep '[ ]*#define[ ]*__AUDACIOUS_PLUGIN_API__' %{_includedir}/audacious/plugin.h | sed 's!.*__AUDACIOUS_PLUGIN_API__[ ]*\\([0-9]\\+\\).*!\\1!')
 
 Name:           audacious-plugins-freeworld
-Version:        2.4.4
+Version:        2.4.5
 Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
@@ -229,6 +229,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Fri Apr 29 2011 Hans de Goede <j.w.r.degoede@gmail.com> 2.4.5-1
+- Update to 2.4.5
+
 * Mon Apr 11 2011 Hans de Goede <j.w.r.degoede@gmail.com> 2.4.4-1
 - Update to 2.4.4
 
