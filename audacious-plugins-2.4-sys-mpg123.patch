@@ -40,9 +40,9 @@ diff -up audacious-plugins-2.4-rc2/src/mpg123/mpg123.c~ audacious-plugins-2.4-rc
 --- audacious-plugins-2.4-rc2/src/mpg123/mpg123.c~	2010-08-13 23:01:12.000000000 +0200
 +++ audacious-plugins-2.4-rc2/src/mpg123/mpg123.c	2010-08-24 12:00:25.904713006 +0200
 @@ -33,7 +33,7 @@
- #include <audacious/plugin.h>
  #include <audacious/audtag.h>
  
+ #include "config.h"
 -#include "libmpg123/mpg123.h"
 +#include <mpg123.h>
  
