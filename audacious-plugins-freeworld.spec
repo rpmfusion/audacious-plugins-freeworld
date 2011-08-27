@@ -3,24 +3,23 @@
 # - add BR sidplay2-devel and find a way to make the built sid.so
 #   plugin an alternative to Fedora's sidplay1 based sid.so
 
-%global         aud_plugin_api %(grep '[ ]*#define[ ]*__AUDACIOUS_PLUGIN_API__' %{_includedir}/audacious/plugin.h | sed 's!.*__AUDACIOUS_PLUGIN_API__[ ]*\\([0-9]\\+\\).*!\\1!')
+%global aud_plugin_api %(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION[ ]\\+' %{_includedir}/audacious/plugin.h 2>/dev/null | sed 's!.*_AUD_PLUGIN_VERSION[ ]*\\([0-9]\\+\\).*!\\1!')
+%if 0%{aud_plugin_api} > 0
+%global aud_plugin_dep Requires: audacious(plugin-api) = %{aud_plugin_api}
+%endif
 
 Name:           audacious-plugins-freeworld
-Version:        2.4.5
+Version:        3.0.2
 Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
 License:        GPLv3
 URL:            http://audacious-media-player.org/
-Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}.tgz
+Source0:        http://distfiles.atheme.org/audacious-plugins-%{version}.tar.gz
 Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
 Source3:        audacious-ffaudio.desktop
-Patch0:         audacious-plugins-2.4-sys-mpg123.patch
-Patch1:         audacious-plugins-2.4-ffaudio-metadata.patch
-Patch2:         audacious-plugins-2.4-no-avcore.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  zlib-devel, libxml2-devel, desktop-file-utils >= 0.9
@@ -37,10 +36,6 @@ Requires:       %{name}-aac = %{version}-%{release}
 Requires:       %{name}-mms = %{version}-%{release}
 Requires:       %{name}-ffaudio = %{version}-%{release}
 
-# obsolete old freshrpms package
-Provides:       audacious-plugins-extras = %{version}-%{release}
-Obsoletes:      audacious-plugins-extras < %{version}-%{release}
-
 %description
 Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
@@ -52,16 +47,10 @@ This package contains additional plugins for the Audacious media player.
 %package        mp3
 Summary:        MP3 playback plugin for Audacious
 Group:          Applications/Multimedia
-%if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
-Requires:       audacious(plugin-api) = %{aud_plugin_api}
-%endif
+%{?aud_plugin_dep}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
-
-# obsolete old livna package
-Provides:       audacious-plugins-nonfree-mp3 = %{version}-%{release}
-Obsoletes:      audacious-plugins-nonfree-mp3 < %{version}-%{release}
 
 %description    mp3
 Audacious is a media player that currently uses a skinned
@@ -74,16 +63,10 @@ This is the plugin needed to play MP3 audio files.
 %package        aac
 Summary:        AAC playback plugin for Audacious
 Group:          Applications/Multimedia
-%if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
-Requires:       audacious(plugin-api) = %{aud_plugin_api}
-%endif
+%{?aud_plugin_dep}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
-
-# obsolete old livna package
-Provides:       audacious-plugins-nonfree-aac = %{version}-%{release}
-Obsoletes:      audacious-plugins-nonfree-aac < %{version}-%{release}
 
 %description    aac
 Audacious is a media player that currently uses a skinned
@@ -96,9 +79,7 @@ This is the plugin needed to play AAC audio files.
 %package        ffaudio
 Summary:        FFMpeg/FAAD2 based input plugin for Audacious
 Group:          Applications/Multimedia
-%if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
-Requires:       audacious(plugin-api) = %{aud_plugin_api}
-%endif
+%{?aud_plugin_dep}
 
 Requires(post):  desktop-file-utils >= 0.9
 Requires(postun): desktop-file-utils >= 0.9
@@ -108,11 +89,6 @@ Obsoletes:      audacious-plugins-freeworld-alac <= 2.1
 Obsoletes:      audacious-plugins-freeworld-tta <= 2.1
 Obsoletes:      audacious-plugins-freeworld-wma <= 2.1
 
-# obsolete old livna packages
-Obsoletes:      audacious-plugins-nonfree-alac < %{version}-%{release}
-Obsoletes:      audacious-plugins-nonfree-tta < %{version}-%{release}
-Obsoletes:      audacious-plugins-nonfree-wma < %{version}-%{release}
-
 %description ffaudio
 FFMpeg/FAAD2 based input plugin for Audacious.
 
@@ -120,13 +96,7 @@ FFMpeg/FAAD2 based input plugin for Audacious.
 %package        mms
 Summary:        MMS stream plugin for Audacious
 Group:          Applications/Multimedia
-%if %(test -f %{_includedir}/audacious/plugin.h && echo 1 || echo 0)
-Requires:       audacious(plugin-api) = %{aud_plugin_api}
-%endif
-
-# obsolete old livna package
-Provides:       audacious-plugins-nonfree-mms = %{version}-%{release}
-Obsoletes:      audacious-plugins-nonfree-mms < %{version}-%{release}
+%{?aud_plugin_dep}
 
 %description    mms
 Audacious is a media player that currently uses a skinned
@@ -138,11 +108,6 @@ This is the plugin needed to access MMS streams.
 
 %prep
 %setup -q -n audacious-plugins-%{version}
-# We want to use the system mpg123
-rm -r src/mpg123/libmpg123
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 
@@ -160,7 +125,6 @@ make V=1 %{?_smp_mflags} -C src/mms
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -C src/mpg123 install DESTDIR=$RPM_BUILD_ROOT
 make -C src/aac install DESTDIR=$RPM_BUILD_ROOT
 make -C src/ffaudio install DESTDIR=$RPM_BUILD_ROOT
@@ -179,10 +143,6 @@ desktop-file-install --vendor "" \
     %{SOURCE3}
 
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
-
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %post mp3
@@ -206,29 +166,39 @@ update-desktop-database %{_datadir}/applications
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING
 
 %files mp3
 %defattr(-,root,root,-)
+%doc COPYING
 %{_libdir}/audacious/Input/madplug.so
 %{_datadir}/applications/livna-audacious-mp3.desktop
 
 %files aac
 %defattr(-,root,root,-)
+%doc COPYING
 %{_libdir}/audacious/Input/aac.so
 %{_datadir}/applications/livna-audacious-aac.desktop
 
 %files ffaudio
 %defattr(-,root,root,-)
+%doc COPYING
 %{_libdir}/audacious/Input/ffaudio.so
 %{_datadir}/applications/audacious-ffaudio.desktop
 
 %files mms
+%doc COPYING
 %defattr(-,root,root,-)
 %{_libdir}/audacious/Transport/mms.so
 
 
 %changelog
+* Sat Aug 27 2011 Hans de Goede <j.w.r.degoede@gmail.com> 3.0.2-1
+- Update to 3.0.2
+
+* Wed Jun 22 2011 Hans de Goede <j.w.r.degoede@gmail.com> 2.5.2-1
+- Update to 2.5.2
+- Drop Provides + Obsoletes for upgrade path from livna / freshrpms
+
 * Fri Apr 29 2011 Hans de Goede <j.w.r.degoede@gmail.com> 2.4.5-1
 - Update to 2.4.5
 
