@@ -1,16 +1,11 @@
-# TODO:
-# - add more mime types to .desktop file for 'ffaudio' plugin
-# - add BR sidplay2-devel and find a way to make the built sid.so
-#   plugin an alternative to Fedora's sidplay1 based sid.so
-
 %global aud_plugin_api %(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION[ ]\\+' %{_includedir}/audacious/plugin.h 2>/dev/null | sed 's!.*_AUD_PLUGIN_VERSION[ ]*\\([0-9]\\+\\).*!\\1!')
 %if 0%{aud_plugin_api} > 0
-%global aud_plugin_dep Requires: audacious(plugin-api) = %{aud_plugin_api}
+%global aud_plugin_dep Requires: audacious(plugin-api)%{?_isa} = %{aud_plugin_api}
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.0.2
-Release:        2%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}.1
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -165,33 +160,31 @@ update-desktop-database %{_datadir}/applications
 
 
 %files
-%defattr(-,root,root,-)
 
 %files mp3
-%defattr(-,root,root,-)
 %doc COPYING
 %{_libdir}/audacious/Input/madplug.so
 %{_datadir}/applications/livna-audacious-mp3.desktop
 
 %files aac
-%defattr(-,root,root,-)
 %doc COPYING
 %{_libdir}/audacious/Input/aac.so
 %{_datadir}/applications/livna-audacious-aac.desktop
 
 %files ffaudio
-%defattr(-,root,root,-)
 %doc COPYING
 %{_libdir}/audacious/Input/ffaudio.so
 %{_datadir}/applications/audacious-ffaudio.desktop
 
 %files mms
 %doc COPYING
-%defattr(-,root,root,-)
 %{_libdir}/audacious/Transport/mms.so
 
 
 %changelog
+* Thu Nov  3 2011 Hans de Goede <j.w.r.degoede@gmail.com> 3.0.4-1.fc16.1
+- Upgrade to 3.0.4
+
 * Sun Sep  4 2011 Hans de Goede <j.w.r.degoede@gmail.com> 3.0.2-2
 - Rebuild for ffmpeg-0.8
 
