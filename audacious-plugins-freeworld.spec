@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -19,6 +19,8 @@ Source3:        audacious-ffaudio.desktop
 # Revert 166902832b0e94d090acaf1c31688e70668388ac
 # (this can be dropped once we have ffmpeg-0.9.x in rpmfusion)
 Patch0:         audacious-plugins-3.2-ffmpeg-0.8.8.patch
+# emailed to upstream
+Patch1:         audacious-plugins-3.2-mp3-err-handling-fix.patch
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  zlib-devel, libxml2-devel, desktop-file-utils >= 0.9
@@ -108,6 +110,7 @@ This is the plugin needed to access MMS streams.
 %prep
 %setup -q -n audacious-plugins-%{version}
 %patch0 -p1
+%patch1 -p1
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 
@@ -187,6 +190,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Sun Jan 29 2012 Hans de Goede <j.w.r.degoede@gmail.com> 3.2-2
+- Silence false error printf's when reaching EOF on mp3 files
+
 * Sun Jan 29 2012 Hans de Goede <j.w.r.degoede@gmail.com> 3.2-1
 - Upgrade to 3.2
 
