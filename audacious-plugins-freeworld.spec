@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -190,6 +190,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Tue Feb 28 2012 Nicolas Chauvet <kwizart@gmail.com> - 3.2-3
+- Rebuilt for x264/FFmpeg
+
 * Sun Jan 29 2012 Hans de Goede <j.w.r.degoede@gmail.com> 3.2-2
 - Silence false error printf's when reaching EOF on mp3 files
 
