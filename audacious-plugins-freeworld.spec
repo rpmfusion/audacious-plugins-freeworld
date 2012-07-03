@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.3
-Release:        0.1.alpha1%{?dist}
+Release:        0.2.alpha1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -186,6 +186,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Tue Jul 03 2012 Nicolas Chauvet <kwizart@gmail.com> - 3.3-0.2.alpha1
+- Rebuilt for mpeg123
+
 * Sun Jun 24 2012 Hans de Goede <j.w.r.degoede@gmail.com> - 3.3-0.1.alpha1
 - Upgrade to 3.3-alpha1
 
