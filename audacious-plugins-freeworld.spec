@@ -4,8 +4,8 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.2
-Release:        3%{?dist}
+Version:        3.2.4
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -15,12 +15,6 @@ Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{
 Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
 Source3:        audacious-ffaudio.desktop
-
-# Revert 166902832b0e94d090acaf1c31688e70668388ac
-# (this can be dropped once we have ffmpeg-0.9.x in rpmfusion)
-Patch0:         audacious-plugins-3.2-ffmpeg-0.8.8.patch
-# emailed to upstream
-Patch1:         audacious-plugins-3.2-mp3-err-handling-fix.patch
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  zlib-devel, libxml2-devel, desktop-file-utils >= 0.9
@@ -109,8 +103,6 @@ This is the plugin needed to access MMS streams.
 
 %prep
 %setup -q -n audacious-plugins-%{version}
-%patch0 -p1
-%patch1 -p1
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 
@@ -190,6 +182,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Sun Sep 23 2012 Hans de Goede <j.w.r.degoede@gmail.com> 3.2.4-1
+- Upgrade to 3.2.4
+
 * Tue Feb 28 2012 Nicolas Chauvet <kwizart@gmail.com> - 3.2-3
 - Rebuilt for x264/FFmpeg
 
