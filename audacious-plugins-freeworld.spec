@@ -4,22 +4,19 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.3
-Release:        0.2.alpha1%{?dist}
+Version:        3.3.2
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
 License:        GPLv3
 URL:            http://audacious-media-player.org/
-Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}-alpha1.tar.bz2
+Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 Source1:        audacious-mp3.desktop
 Source2:        audacious-aac.desktop
 Source3:        audacious-ffaudio.desktop
 
-# emailed to upstream
-Patch1:         audacious-plugins-3.2-mp3-err-handling-fix.patch
-
-BuildRequires:  audacious-devel >= %{version}
+BuildRequires:  audacious-devel >= 3.3
 BuildRequires:  zlib-devel, libxml2-devel, desktop-file-utils >= 0.9
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel, libmpg123-devel
@@ -105,8 +102,7 @@ This is the plugin needed to access MMS streams.
 
 
 %prep
-%setup -q -n audacious-plugins-%{version}-alpha1
-%patch1 -p1
+%setup -q -n audacious-plugins-%{version}
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 
@@ -186,6 +182,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Sun Sep 23 2012 Hans de Goede <j.w.r.degoede@gmail.com> - 3.3.2-1
+- Upgrade to 3.3.2
+
 * Tue Jul 03 2012 Nicolas Chauvet <kwizart@gmail.com> - 3.3-0.2.alpha1
 - Rebuilt for mpeg123
 
