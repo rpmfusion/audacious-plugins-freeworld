@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -182,6 +182,9 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Sat Nov 24 2012 Nicolas Chauvet <kwizart@gmail.com> - 3.3.2-2
+- Rebuilt for FFmpeg 1.0
+
 * Sun Sep 23 2012 Hans de Goede <j.w.r.degoede@gmail.com> - 3.3.2-1
 - Upgrade to 3.3.2
 
