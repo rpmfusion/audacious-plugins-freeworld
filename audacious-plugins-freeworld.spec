@@ -4,20 +4,17 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.3.2
-Release:        2%{?dist}
+Version:        3.3.4
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
 License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
-Source1:        audacious-mp3.desktop
-Source2:        audacious-aac.desktop
-Source3:        audacious-ffaudio.desktop
 
 BuildRequires:  audacious-devel >= 3.3
-BuildRequires:  zlib-devel, libxml2-devel, desktop-file-utils >= 0.9
+BuildRequires:  zlib-devel, libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel, libmpg123-devel
 BuildRequires:  gettext, libbinio-devel
@@ -44,9 +41,6 @@ Summary:        MP3 playback plugin for Audacious
 Group:          Applications/Multimedia
 %{?aud_plugin_dep}
 
-Requires(post):  desktop-file-utils >= 0.9
-Requires(postun): desktop-file-utils >= 0.9
-
 %description    mp3
 Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
@@ -60,9 +54,6 @@ Summary:        AAC playback plugin for Audacious
 Group:          Applications/Multimedia
 %{?aud_plugin_dep}
 
-Requires(post):  desktop-file-utils >= 0.9
-Requires(postun): desktop-file-utils >= 0.9
-
 %description    aac
 Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
@@ -75,9 +66,6 @@ This is the plugin needed to play AAC audio files.
 Summary:        FFMpeg/FAAD2 based input plugin for Audacious
 Group:          Applications/Multimedia
 %{?aud_plugin_dep}
-
-Requires(post):  desktop-file-utils >= 0.9
-Requires(postun): desktop-file-utils >= 0.9
 
 # obsolete discontinued plugins
 Obsoletes:      audacious-plugins-freeworld-alac <= 2.1
@@ -124,39 +112,7 @@ make -C src/mpg123 install DESTDIR=$RPM_BUILD_ROOT
 make -C src/aac install DESTDIR=$RPM_BUILD_ROOT
 make -C src/ffaudio install DESTDIR=$RPM_BUILD_ROOT
 make -C src/mms install DESTDIR=$RPM_BUILD_ROOT
-
-desktop-file-install --vendor livna \
-    --dir $RPM_BUILD_ROOT%{_datadir}/applications   \
-    %{SOURCE1}
-
-desktop-file-install --vendor livna \
-    --dir $RPM_BUILD_ROOT%{_datadir}/applications   \
-    %{SOURCE2}
-
-desktop-file-install --vendor "" \
-    --dir $RPM_BUILD_ROOT%{_datadir}/applications   \
-    %{SOURCE3}
-
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
-
-
-%post mp3
-update-desktop-database %{_datadir}/applications
-
-%postun mp3
-update-desktop-database %{_datadir}/applications
-
-%post aac
-update-desktop-database %{_datadir}/applications
-
-%postun aac
-update-desktop-database %{_datadir}/applications
-
-%post ffaudio
-update-desktop-database %{_datadir}/applications
-
-%postun ffaudio
-update-desktop-database %{_datadir}/applications
 
 
 %files
@@ -164,17 +120,14 @@ update-desktop-database %{_datadir}/applications
 %files mp3
 %doc COPYING
 %{_libdir}/audacious/Input/madplug.so
-%{_datadir}/applications/livna-audacious-mp3.desktop
 
 %files aac
 %doc COPYING
 %{_libdir}/audacious/Input/aac.so
-%{_datadir}/applications/livna-audacious-aac.desktop
 
 %files ffaudio
 %doc COPYING
 %{_libdir}/audacious/Input/ffaudio.so
-%{_datadir}/applications/audacious-ffaudio.desktop
 
 %files mms
 %doc COPYING
@@ -182,6 +135,10 @@ update-desktop-database %{_datadir}/applications
 
 
 %changelog
+* Sat Mar  2 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 3.3.4-1
+- Upgrade to 3.3.4
+- Drop .desktop files, the mimetypes have moved to the main pkg (rf#2636)
+
 * Sat Nov 24 2012 Nicolas Chauvet <kwizart@gmail.com> - 3.3.2-2
 - Rebuilt for FFmpeg 1.0
 
