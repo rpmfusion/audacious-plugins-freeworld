@@ -4,8 +4,8 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.3.4
-Release:        2%{?dist}
+Version:        3.4
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -13,7 +13,7 @@ License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
-BuildRequires:  audacious-devel >= 3.3
+BuildRequires:  audacious-devel >= 3.4
 BuildRequires:  zlib-devel, libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel, libmpg123-devel
@@ -135,6 +135,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Tue Jul  9 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 3.4-1
+- Upgrade to 3.4, resolves rf#2849, rf#2868
+
 * Sun May 26 2013 Nicolas Chauvet <kwizart@gmail.com> - 3.3.4-2
 - Rebuilt for x264/FFmpeg
 
@@ -273,5 +276,5 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 - Properly add Requires(post/postun)
 - Carry over changes from main audacious-1.1.1-4 package
 
-* Sun Aug 01 2006 Ralf Ertzinger <ralf@skytale.net> 1.1.1-3.fc6
+* Tue Aug 01 2006 Ralf Ertzinger <ralf@skytale.net> 1.1.1-3.fc6
 - Initial RPM for livna
