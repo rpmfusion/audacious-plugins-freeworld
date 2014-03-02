@@ -4,7 +4,7 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.4.2
+Version:        3.4.3
 Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
@@ -135,6 +135,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sun Mar  2 2014 Hans de Goede <j.w.r.degoede@gmail.com> - 3.4.3-1
+- Upgrade to 3.4.3
+
 * Thu Nov 21 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 3.4.2-1
 - Upgrade to 3.4.2
 
