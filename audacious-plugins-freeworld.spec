@@ -4,8 +4,8 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.4.3
-Release:        2%{?dist}
+Version:        3.5
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -13,7 +13,7 @@ License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
-BuildRequires:  audacious-devel >= 3.4
+BuildRequires:  audacious-devel >= 3.5
 BuildRequires:  zlib-devel, libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel, libmpg123-devel
@@ -135,6 +135,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu May  1 2014 Hans de Goede <j.w.r.degoede@gmail.com> - 3.5-1
+- Upgrade to 3.5
+
 * Sat Mar 29 2014 Sérgio Basto <sergio@serjux.com> - 3.4.3-2
 - Rebuilt for ffmpeg-2.2
 
