@@ -1,0 +1,12 @@
+diff -up audacious-plugins-3.5/src/mms/Makefile~ audacious-plugins-3.5/src/mms/Makefile
+--- audacious-plugins-3.5/src/mms/Makefile~	2014-04-23 04:37:46.000000000 +0200
++++ audacious-plugins-3.5/src/mms/Makefile	2014-08-07 14:37:22.063941098 +0200
+@@ -7,6 +7,6 @@ include ../../extra.mk
+ 
+ plugindir := ${plugindir}/${TRANSPORT_PLUGIN_DIR}
+ 
+-CPPFLAGS += ${PLUGIN_CPPFLAGS} ${MMS_CFLAGS} -I../.. -Wall
++CPPFLAGS += ${PLUGIN_CPPFLAGS} ${GLIB_CFLAGS} ${MMS_CFLAGS} -I../.. -Wall
+ CFLAGS += ${PLUGIN_CFLAGS}
+-LIBS += ${MMS_LIBS}
++LIBS += ${MMS_LIBS} ${GLIB_LIBS}
