@@ -21,6 +21,8 @@ BuildRequires:  gettext, libbinio-devel
 BuildRequires:  dbus-devel >= 0.60, dbus-glib-devel >= 0.60
 # ffaudio plugin
 BuildRequires:  faad2-devel ffmpeg-devel
+# we need to have configure detect atleast one audio output to make it happy
+BuildRequires:  alsa-lib-devel
 
 # require all the plugins
 Requires:       %{name}-mp3 = %{version}-%{release}
