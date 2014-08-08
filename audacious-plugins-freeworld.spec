@@ -4,15 +4,14 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.5
-Release:        3%{?dist}
+Version:        3.5.1
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
 License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
-Patch0:         audacious-plugins-3.5-mms.patch
 
 BuildRequires:  audacious-devel >= 3.5
 BuildRequires:  zlib-devel, libxml2-devel
@@ -92,7 +91,6 @@ This is the plugin needed to access MMS streams.
 
 %prep
 %setup -q -n audacious-plugins-%{version}
-%patch0 -p1
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 
@@ -100,6 +98,9 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
 %configure \
         --disable-rpath \
         --enable-chardet \
+	--disable-flacng \
+	--disable-vorbis \
+	--disable-neon \
         --disable-sse2 \
         --disable-altivec \
         --disable-dependency-tracking
@@ -137,6 +138,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Fri Aug 08 2014 Hans de Goede <j.w.r.degoede@gmail.com> - 3.5.1-1
+- Upgrade to 3.5.1
+
 * Thu Aug 07 2014 Hans de Goede <j.w.r.degoede@gmail.com> - 3.5-3
 - Fix building with new libmms (rf#3327)
 
