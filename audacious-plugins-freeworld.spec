@@ -4,8 +4,8 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.5.1
-Release:        3%{?dist}
+Version:        3.6.1
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -13,7 +13,7 @@ License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
-BuildRequires:  audacious-devel >= 3.5
+BuildRequires:  audacious-devel >= 3.6
 BuildRequires:  zlib-devel, libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel, libmpg123-devel
@@ -107,14 +107,14 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
         --disable-altivec \
         --disable-dependency-tracking
 make V=1 %{?_smp_mflags} -C src/mpg123
-make V=1 %{?_smp_mflags} -C src/aac
+make V=1 %{?_smp_mflags} -C src/aac-raw
 make V=1 %{?_smp_mflags} -C src/ffaudio
 make V=1 %{?_smp_mflags} -C src/mms
 
 
 %install
 make -C src/mpg123 install DESTDIR=$RPM_BUILD_ROOT
-make -C src/aac install DESTDIR=$RPM_BUILD_ROOT
+make -C src/aac-raw install DESTDIR=$RPM_BUILD_ROOT
 make -C src/ffaudio install DESTDIR=$RPM_BUILD_ROOT
 make -C src/mms install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
@@ -128,7 +128,7 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 %files aac
 %doc COPYING
-%{_libdir}/audacious/Input/aac.so
+%{_libdir}/audacious/Input/aac-raw.so
 
 %files ffaudio
 %doc COPYING
@@ -140,6 +140,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sat May 23 2015 Hans de Goede <j.w.r.degoede@gmail.com> - 3.6.1-1
+- Upgrade to 3.6.1 (rf#3659)
+
 * Sun Oct 19 2014 Sérgio Basto <sergio@serjux.com> - 3.5.1-3
 - Rebuilt for FFmpeg 2.4.3
 
