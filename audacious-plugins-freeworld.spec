@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -140,6 +140,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 3.7.2-2
+- Rebuilt for ffmpeg-3.1.1
+
 * Wed May 18 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 3.7.2-1
 - Upgrade to 3.7.2
 
