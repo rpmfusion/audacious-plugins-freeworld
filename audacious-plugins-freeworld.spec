@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -13,7 +13,7 @@ License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
-BuildRequires:  audacious-devel >= 3.6
+BuildRequires:  audacious-devel >= 3.8
 BuildRequires:  zlib-devel, libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel, libmpg123-devel
@@ -142,6 +142,10 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Tue Oct 25 2016 Sérgio Basto <sergio@serjux.com> - 3.8-2
+- Upgrade from 3.7.x to 3.8. Includes a plugin API change that requires rebuilds
+  of 3rd party plugin packages.
+
 * Tue Oct 25 2016 Sérgio Basto <sergio@serjux.com> - 3.8-1
 - Update to 3.8 as in Fedora proper
 - Disable wavpack and flac detection.
