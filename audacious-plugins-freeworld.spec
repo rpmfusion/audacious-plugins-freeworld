@@ -4,8 +4,8 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.7.2
-Release:        2%{?dist}
+Version:        3.8
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -103,18 +103,20 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
 	--disable-flacng \
 	--disable-vorbis \
 	--disable-neon \
+	--disable-flac \
+	--disable-wavpack \
         --disable-sse2 \
         --disable-altivec \
         --disable-dependency-tracking
 make V=1 %{?_smp_mflags} -C src/mpg123
-make V=1 %{?_smp_mflags} -C src/aac-raw
+make V=1 %{?_smp_mflags} -C src/aac
 make V=1 %{?_smp_mflags} -C src/ffaudio
 make V=1 %{?_smp_mflags} -C src/mms
 
 
 %install
 make -C src/mpg123 install DESTDIR=$RPM_BUILD_ROOT
-make -C src/aac-raw install DESTDIR=$RPM_BUILD_ROOT
+make -C src/aac install DESTDIR=$RPM_BUILD_ROOT
 make -C src/ffaudio install DESTDIR=$RPM_BUILD_ROOT
 make -C src/mms install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
@@ -140,6 +142,10 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Tue Oct 25 2016 Sérgio Basto <sergio@serjux.com> - 3.8-1
+- Update to 3.8 as in Fedora proper
+- Disable wavpack and flac detection.
+
 * Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 3.7.2-2
 - Rebuilt for ffmpeg-3.1.1
 
