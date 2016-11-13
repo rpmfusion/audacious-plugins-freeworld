@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -16,7 +16,7 @@ Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{
 BuildRequires:  audacious-devel >= 3.8
 BuildRequires:  zlib-devel, libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
-BuildRequires:  libmms-devel, libmpg123-devel
+BuildRequires:  libmms-devel
 BuildRequires:  gettext, libbinio-devel
 BuildRequires:  dbus-devel >= 0.60, dbus-glib-devel >= 0.60
 # ffaudio plugin
@@ -25,7 +25,6 @@ BuildRequires:  faad2-devel ffmpeg-devel
 BuildRequires:  alsa-lib-devel
 
 # require all the plugins
-Requires:       %{name}-mp3 = %{version}-%{release}
 Requires:       %{name}-aac = %{version}-%{release}
 Requires:       %{name}-mms = %{version}-%{release}
 Requires:       %{name}-ffaudio = %{version}-%{release}
@@ -36,19 +35,6 @@ user interface based on Winamp 2.x skins. It is based on ("forked off")
 BMP.
 
 This package contains additional plugins for the Audacious media player.
-
-
-%package        mp3
-Summary:        MP3 playback plugin for Audacious
-Group:          Applications/Multimedia
-%{?aud_plugin_dep}
-
-%description    mp3
-Audacious is a media player that currently uses a skinned
-user interface based on Winamp 2.x skins. It is based on ("forked off")
-BMP.
-
-This is the plugin needed to play MP3 audio files.
 
 
 %package        aac
@@ -108,14 +94,12 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
         --disable-sse2 \
         --disable-altivec \
         --disable-dependency-tracking
-make V=1 %{?_smp_mflags} -C src/mpg123
 make V=1 %{?_smp_mflags} -C src/aac
 make V=1 %{?_smp_mflags} -C src/ffaudio
 make V=1 %{?_smp_mflags} -C src/mms
 
 
 %install
-make -C src/mpg123 install DESTDIR=$RPM_BUILD_ROOT
 make -C src/aac install DESTDIR=$RPM_BUILD_ROOT
 make -C src/ffaudio install DESTDIR=$RPM_BUILD_ROOT
 make -C src/mms install DESTDIR=$RPM_BUILD_ROOT
@@ -124,24 +108,23 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 %files
 
-%files mp3
-%doc COPYING
-%{_libdir}/audacious/Input/madplug.so
-
 %files aac
-%doc COPYING
+%license COPYING
 %{_libdir}/audacious/Input/aac-raw.so
 
 %files ffaudio
-%doc COPYING
+%license COPYING
 %{_libdir}/audacious/Input/ffaudio.so
 
 %files mms
-%doc COPYING
+%license COPYING
 %{_libdir}/audacious/Transport/mms.so
 
 
 %changelog
+* Sun Nov 13 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 3.8-3
+- Drop mp3 plugin, this is now in Fedora proper
+
 * Tue Oct 25 2016 Sérgio Basto <sergio@serjux.com> - 3.8-2
 - Upgrade from 3.7.x to 3.8. Includes a plugin API change that requires rebuilds
   of 3rd party plugin packages.
