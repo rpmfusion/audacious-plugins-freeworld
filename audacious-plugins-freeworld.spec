@@ -85,15 +85,11 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
 %build
 %configure \
         --disable-rpath \
-        --enable-chardet \
-	--disable-flacng \
 	--disable-vorbis \
 	--disable-neon \
 	--disable-flac \
 	--disable-wavpack \
-        --disable-sse2 \
-        --disable-altivec \
-        --disable-dependency-tracking
+	--disable-mpg123
 make V=1 %{?_smp_mflags} -C src/aac
 make V=1 %{?_smp_mflags} -C src/ffaudio
 make V=1 %{?_smp_mflags} -C src/mms
