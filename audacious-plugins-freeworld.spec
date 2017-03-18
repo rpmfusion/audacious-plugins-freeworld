@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -118,6 +118,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sat Mar 18 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 3.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sun Nov 13 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 3.8-3
 - Drop mp3 plugin, this is now in Fedora proper
 
