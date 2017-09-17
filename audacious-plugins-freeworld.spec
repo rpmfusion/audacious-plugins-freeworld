@@ -4,8 +4,8 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.8
-Release:        6%{?dist}
+Version:        3.9
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -13,21 +13,25 @@ License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
-BuildRequires:  audacious-devel >= 3.8
-BuildRequires:  zlib-devel, libxml2-devel
+BuildRequires:  audacious-devel >= 3.9
+BuildRequires:  zlib-devel
+BuildRequires:  libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel
-BuildRequires:  gettext, libbinio-devel
-BuildRequires:  dbus-devel >= 0.60, dbus-glib-devel >= 0.60
+BuildRequires:  gettext
+BuildRequires:  libbinio-devel
+BuildRequires:  dbus-devel >= 0.60
+BuildRequires:  dbus-glib-devel >= 0.60
 # ffaudio plugin
-BuildRequires:  faad2-devel ffmpeg-devel
+BuildRequires:  faad2-devel
+BuildRequires:  ffmpeg-devel
 # we need to have configure detect atleast one audio output to make it happy
 BuildRequires:  alsa-lib-devel
 
 # require all the plugins
-Requires:       %{name}-aac = %{version}-%{release}
-Requires:       %{name}-mms = %{version}-%{release}
-Requires:       %{name}-ffaudio = %{version}-%{release}
+Requires:       %{name}-aac%{?_isa} = %{version}-%{release}
+Requires:       %{name}-mms%{?_isa} = %{version}-%{release}
+Requires:       %{name}-ffaudio%{?_isa} = %{version}-%{release}
 
 %description
 Audacious is a media player that currently uses a skinned
@@ -118,6 +122,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sun Sep 17 2017 Leigh Scott <leigh123linux@googlemail.com> - 3.9-1
+- Update to 3.9 as in Fedora proper
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 3.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
