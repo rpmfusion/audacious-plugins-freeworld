@@ -5,7 +5,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        3.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Additional plugins for the Audacious media player
 
 Group:          Applications/Multimedia
@@ -122,6 +122,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 3.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Thu Mar 08 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 3.9-5
 - Rebuilt for new ffmpeg snapshot
 
