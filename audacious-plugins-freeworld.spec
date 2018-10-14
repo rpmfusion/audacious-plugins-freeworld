@@ -7,8 +7,6 @@ Name:           audacious-plugins-freeworld
 Version:        3.9
 Release:        6%{?dist}
 Summary:        Additional plugins for the Audacious media player
-
-Group:          Applications/Multimedia
 License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
@@ -43,7 +41,6 @@ This package contains additional plugins for the Audacious media player.
 
 %package        aac
 Summary:        AAC playback plugin for Audacious
-Group:          Applications/Multimedia
 %{?aud_plugin_dep}
 
 %description    aac
@@ -56,7 +53,6 @@ This is the plugin needed to play AAC audio files.
 
 %package        ffaudio
 Summary:        FFMpeg/FAAD2 based input plugin for Audacious
-Group:          Applications/Multimedia
 %{?aud_plugin_dep}
 
 # obsolete discontinued plugins
@@ -70,7 +66,6 @@ FFMpeg/FAAD2 based input plugin for Audacious.
 
 %package        mms
 Summary:        MMS stream plugin for Audacious
-Group:          Applications/Multimedia
 %{?aud_plugin_dep}
 
 %description    mms
