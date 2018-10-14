@@ -12,6 +12,7 @@ URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
 BuildRequires:  audacious-devel >= %{version}
+BuildRequires:  gcc-c++
 BuildRequires:  zlib-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
