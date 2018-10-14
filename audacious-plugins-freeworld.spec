@@ -89,16 +89,16 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
 	--disable-flac \
 	--disable-wavpack \
 	--disable-mpg123
-make V=1 %{?_smp_mflags} -C src/aac
-make V=1 %{?_smp_mflags} -C src/ffaudio
-make V=1 %{?_smp_mflags} -C src/mms
+%make_build -C src/aac
+%make_build -C src/ffaudio
+%make_build -C src/mms
 
 
 %install
-make -C src/aac install DESTDIR=$RPM_BUILD_ROOT
-make -C src/ffaudio install DESTDIR=$RPM_BUILD_ROOT
-make -C src/mms install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
+%make_install -C src/aac
+%make_install -C src/ffaudio
+%make_install -C src/mms
+find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %files
