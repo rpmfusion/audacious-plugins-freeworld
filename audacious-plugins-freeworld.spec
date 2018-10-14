@@ -11,7 +11,7 @@ License:        GPLv3
 URL:            http://audacious-media-player.org/
 Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
-BuildRequires:  audacious-devel >= 3.9
+BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  zlib-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  taglib-devel >= 1.4
@@ -42,6 +42,7 @@ This package contains additional plugins for the Audacious media player.
 %package        aac
 Summary:        AAC playback plugin for Audacious
 %{?aud_plugin_dep}
+Requires:       audacious-plugins%{?_isa} >= %{version}
 
 %description    aac
 Audacious is a media player that currently uses a skinned
@@ -54,6 +55,7 @@ This is the plugin needed to play AAC audio files.
 %package        ffaudio
 Summary:        FFMpeg/FAAD2 based input plugin for Audacious
 %{?aud_plugin_dep}
+Requires:       audacious-plugins%{?_isa} >= %{version}
 
 # obsolete discontinued plugins
 Obsoletes:      audacious-plugins-freeworld-alac <= 2.1
@@ -67,6 +69,7 @@ FFMpeg/FAAD2 based input plugin for Audacious.
 %package        mms
 Summary:        MMS stream plugin for Audacious
 %{?aud_plugin_dep}
+Requires:       audacious-plugins%{?_isa} >= %{version}
 
 %description    mms
 Audacious is a media player that currently uses a skinned
