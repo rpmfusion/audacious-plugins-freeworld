@@ -4,8 +4,8 @@
 %endif
 
 Name:           audacious-plugins-freeworld
-Version:        3.9
-Release:        6%{?dist}
+Version:        3.10
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
 URL:            http://audacious-media-player.org/
@@ -82,11 +82,11 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
 %build
 %configure \
         --disable-rpath \
-	--disable-vorbis \
-	--disable-neon \
-	--disable-flac \
-	--disable-wavpack \
-	--disable-mpg123
+        --disable-vorbis \
+        --disable-neon \
+        --disable-flac \
+        --disable-wavpack \
+        --disable-mpg123
 %make_build -C src/aac
 %make_build -C src/ffaudio
 %make_build -C src/mms
@@ -115,6 +115,13 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sun Oct 14 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.10-1
+- Update to 3.10 as in Fedora proper
+- Remove Group tag
+- Use make macros and update buildroot macro
+- Add versioned audacious* BuildRequires and Requires
+- Drop obsolete Obsoletes
+
 * Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 3.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
