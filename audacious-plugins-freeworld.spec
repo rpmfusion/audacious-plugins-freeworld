@@ -57,11 +57,6 @@ Summary:        FFMpeg/FAAD2 based input plugin for Audacious
 %{?aud_plugin_dep}
 Requires:       audacious-plugins%{?_isa} >= %{version}
 
-# obsolete discontinued plugins
-Obsoletes:      audacious-plugins-freeworld-alac <= 2.1
-Obsoletes:      audacious-plugins-freeworld-tta <= 2.1
-Obsoletes:      audacious-plugins-freeworld-wma <= 2.1
-
 %description ffaudio
 FFMpeg/FAAD2 based input plugin for Audacious.
 
