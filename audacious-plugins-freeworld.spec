@@ -1,10 +1,11 @@
-%global aud_plugin_api %(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION[ ]\\+' %{_includedir}/audacious/plugin.h 2>/dev/null | sed 's!.*_AUD_PLUGIN_VERSION[ ]*\\([0-9]\\+\\).*!\\1!')
+%global aud_plugin_api %(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION[ ]\\+' %{_includedir}/libaudcore/plugin.h 2>/dev/null | sed 's!.*_AUD_PLUGIN_VERSION[ ]*\\([0-9]\\+\\).*!\\1!')
 %if 0%{aud_plugin_api} > 0
 %global aud_plugin_dep Requires: audacious(plugin-api)%{?_isa} = %{aud_plugin_api}
 %endif
+%{?aud_plugin_dep}
 
 Name:           audacious-plugins-freeworld
-Version:        3.10
+Version:        3.10.1
 Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
@@ -116,6 +117,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jan 05 2019 Leigh Scott <leigh123linux@googlemail.com> - 3.10.1-1
+- Update to 3.10.1
+
 * Sun Oct 14 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.10-1
 - Update to 3.10 as in Fedora proper
 - Remove Group tag
