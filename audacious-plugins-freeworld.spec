@@ -16,6 +16,7 @@ BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  zlib-devel
 BuildRequires:  libxml2-devel
+BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  libmms-devel
 BuildRequires:  gettext
