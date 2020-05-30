@@ -5,7 +5,7 @@
 %{?aud_plugin_dep}
 
 Name:           audacious-plugins-freeworld
-Version:        4.0.1
+Version:        4.0.3
 Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
@@ -118,6 +118,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sat May 30 2020 Leigh Scott <leigh123linux@gmail.com> - 4.0.3-1
+- Update to 4.0.3
+
 * Fri Apr 10 2020 Leigh Scott <leigh123linux@gmail.com> - 4.0.1-1
 - Update to 4.0.1
 
