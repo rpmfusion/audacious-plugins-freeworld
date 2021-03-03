@@ -5,12 +5,12 @@
 %{?aud_plugin_dep}
 
 Name:           audacious-plugins-freeworld
-Version:        4.0.5
-Release:        3%{?dist}
+Version:        4.1
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
-URL:            http://audacious-media-player.org/
-Source0:        http://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
+URL:            https://audacious-media-player.org/
+Source0:        https://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  gcc-c++
@@ -80,6 +80,7 @@ This is the plugin needed to access MMS streams.
 %prep
 %setup -q -n audacious-plugins-%{version}
 sed -i '\,^.SILENT:,d' buildsys.mk.in
+sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
 
 
 %build
@@ -118,6 +119,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Wed Mar 03 2021 Leigh Scott <leigh123linux@gmail.com> - 4.1-1
+- Update to 4.1
+
 * Wed Feb 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 4.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
