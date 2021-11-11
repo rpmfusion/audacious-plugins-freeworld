@@ -6,7 +6,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
 URL:            https://audacious-media-player.org/
@@ -119,6 +119,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Nov 11 2021 Leigh Scott <leigh123linux@gmail.com> - 4.1-3
+- Rebuilt for new ffmpeg snapshot
+
 * Mon Aug 02 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
