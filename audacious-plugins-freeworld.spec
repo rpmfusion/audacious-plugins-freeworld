@@ -11,6 +11,7 @@ Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
 URL:            https://audacious-media-player.org/
 Source0:        https://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
+Patch0:         https://github.com/audacious-media-player/audacious-plugins/commit/f60beb400eeb1e4778bbfd738bc4a4ccef3de539.patch
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  gcc-c++
@@ -78,7 +79,7 @@ This is the plugin needed to access MMS streams.
 
 
 %prep
-%setup -q -n audacious-plugins-%{version}
+%autosetup -p1 -n audacious-plugins-%{version}
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
 
