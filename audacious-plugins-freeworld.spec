@@ -5,13 +5,12 @@
 %{?aud_plugin_dep}
 
 Name:           audacious-plugins-freeworld
-Version:        4.1
-Release:        5%{?dist}
+Version:        4.2
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
 URL:            https://audacious-media-player.org/
 Source0:        https://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
-Patch0:         https://github.com/audacious-media-player/audacious-plugins/commit/f60beb400eeb1e4778bbfd738bc4a4ccef3de539.patch
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  gcc-c++
@@ -120,6 +119,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Tue Aug 16 2022 Leigh Scott <leigh123linux@gmail.com> - 4.2-1
+- Update to 4.2
+
 * Sat Aug 06 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
   5.1
