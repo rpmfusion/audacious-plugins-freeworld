@@ -5,12 +5,12 @@
 %{?aud_plugin_dep}
 
 Name:           audacious-plugins-freeworld
-Version:        4.2
-Release:        2%{?dist}
+Version:        4.3
+Release:        0.1.beta1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
 URL:            https://audacious-media-player.org/
-Source0:        https://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
+Source0:        https://distfiles.audacious-media-player.org/audacious-plugins-%{version}-beta1.tar.bz2
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  gcc-c++
@@ -67,7 +67,7 @@ This is the plugin needed to access MMS streams.
 
 
 %prep
-%autosetup -p1 -n audacious-plugins-%{version}
+%autosetup -p1 -n audacious-plugins-%{version}-beta1
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
 
@@ -79,7 +79,8 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
         --disable-neon \
         --disable-flac \
         --disable-wavpack \
-        --disable-mpg123
+        --disable-mpg123 \
+        --disable-opus
 %make_build -C src/aac
 %make_build -C src/mms
 
@@ -102,6 +103,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Fri Mar 03 2023 Leigh Scott <leigh123linux@gmail.com> - 4.3-0.1.beta1
+- Upgrade to 4.3 beta1
+
 * Fri Mar 03 2023 Leigh Scott <leigh123linux@gmail.com> - 4.2-2
 - Remove ffaudio plugin (rfbz#6577)
 
