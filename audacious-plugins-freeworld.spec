@@ -6,7 +6,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
 URL:            https://audacious-media-player.org/
@@ -25,14 +25,12 @@ BuildRequires:  dbus-devel >= 0.60
 BuildRequires:  dbus-glib-devel >= 0.60
 # ffaudio plugin
 BuildRequires:  faad2-devel
-BuildRequires:  ffmpeg-devel
 # we need to have configure detect atleast one audio output to make it happy
 BuildRequires:  alsa-lib-devel
 
 # require all the plugins
 Requires:       %{name}-aac%{?_isa} = %{version}-%{release}
 Requires:       %{name}-mms%{?_isa} = %{version}-%{release}
-Requires:       %{name}-ffaudio%{?_isa} = %{version}-%{release}
 
 %description
 Audacious is a media player that currently uses a skinned
@@ -52,17 +50,8 @@ Audacious is a media player that currently uses a skinned
 user interface based on Winamp 2.x skins. It is based on ("forked off")
 BMP.
 
+
 This is the plugin needed to play AAC audio files.
-
-
-%package        ffaudio
-Summary:        FFMpeg/FAAD2 based input plugin for Audacious
-%{?aud_plugin_dep}
-Requires:       audacious-plugins%{?_isa} >= %{version}
-
-%description ffaudio
-FFMpeg/FAAD2 based input plugin for Audacious.
-
 
 %package        mms
 Summary:        MMS stream plugin for Audacious
@@ -92,13 +81,11 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
         --disable-wavpack \
         --disable-mpg123
 %make_build -C src/aac
-%make_build -C src/ffaudio
 %make_build -C src/mms
 
 
 %install
 %make_install -C src/aac
-%make_install -C src/ffaudio
 %make_install -C src/mms
 find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
@@ -109,16 +96,15 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 %license COPYING
 %{_libdir}/audacious/Input/aac-raw.so
 
-%files ffaudio
-%license COPYING
-%{_libdir}/audacious/Input/ffaudio.so
-
 %files mms
 %license COPYING
 %{_libdir}/audacious/Transport/mms.so
 
 
 %changelog
+* Fri Mar 03 2023 Leigh Scott <leigh123linux@gmail.com> - 4.2-2
+- Remove ffaudio plugin (rfbz#6577)
+
 * Tue Aug 16 2022 Leigh Scott <leigh123linux@gmail.com> - 4.2-1
 - Update to 4.2
 
