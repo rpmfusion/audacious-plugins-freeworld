@@ -6,7 +6,7 @@
 
 Name:           audacious-plugins-freeworld
 Version:        4.3
-Release:        0.2.beta1%{?dist}
+Release:        0.3.beta1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
 URL:            https://audacious-media-player.org/
@@ -18,7 +18,6 @@ BuildRequires:  zlib-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  taglib-devel >= 1.4
-BuildRequires:  libmms-devel
 BuildRequires:  gettext
 BuildRequires:  libbinio-devel
 BuildRequires:  dbus-devel >= 0.60
@@ -30,7 +29,6 @@ BuildRequires:  alsa-lib-devel
 
 # require all the plugins
 Requires:       %{name}-aac%{?_isa} = %{version}-%{release}
-Requires:       %{name}-mms%{?_isa} = %{version}-%{release}
 
 %description
 Audacious is a media player that currently uses a skinned
@@ -53,19 +51,6 @@ BMP.
 
 This is the plugin needed to play AAC audio files.
 
-%package        mms
-Summary:        MMS stream plugin for Audacious
-%{?aud_plugin_dep}
-Requires:       audacious-plugins%{?_isa} >= %{version}
-
-%description    mms
-Audacious is a media player that currently uses a skinned
-user interface based on Winamp 2.x skins. It is based on ("forked off")
-BMP.
-
-This is the plugin needed to access MMS streams.
-
-
 %prep
 %autosetup -p1 -n audacious-plugins-%{version}-beta1
 sed -i '\,^.SILENT:,d' buildsys.mk.in
@@ -80,14 +65,13 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
         --disable-flac \
         --disable-wavpack \
         --disable-mpg123 \
+        --disable-mms \
         --disable-opus
 %make_build -C src/aac
-%make_build -C src/mms
 
 
 %install
 %make_install -C src/aac
-%make_install -C src/mms
 find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
@@ -97,12 +81,11 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 %license COPYING
 %{_libdir}/audacious/Input/aac-raw.so
 
-%files mms
-%license COPYING
-%{_libdir}/audacious/Transport/mms.so
-
 
 %changelog
+* Sun Nov 05 2023 Sérgio Basto <sergio@serjux.com> - 4.3-0.3.beta1
+- mms transport plugin moved to Fedora
+
 * Wed Aug 02 2023 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.3-0.2.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
