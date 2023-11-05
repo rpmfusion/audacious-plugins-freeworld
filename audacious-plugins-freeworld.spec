@@ -5,12 +5,12 @@
 %{?aud_plugin_dep}
 
 Name:           audacious-plugins-freeworld
-Version:        4.3
-Release:        0.3.beta1%{?dist}
+Version:        4.3.1
+Release:        1%{?dist}
 Summary:        Additional plugins for the Audacious media player
 License:        GPLv3
 URL:            https://audacious-media-player.org/
-Source0:        https://distfiles.audacious-media-player.org/audacious-plugins-%{version}-beta1.tar.bz2
+Source0:        https://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  gcc-c++
@@ -52,7 +52,7 @@ BMP.
 This is the plugin needed to play AAC audio files.
 
 %prep
-%autosetup -p1 -n audacious-plugins-%{version}-beta1
+%autosetup -p1 -n audacious-plugins-%{version}
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
 
@@ -83,6 +83,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sun Nov 05 2023 Sérgio Basto <sergio@serjux.com> - 4.3.1-1
+- Update audacious-plugins-freeworld to 4.3.1
+
 * Sun Nov 05 2023 Sérgio Basto <sergio@serjux.com> - 4.3-0.3.beta1
 - mms transport plugin moved to Fedora
 
