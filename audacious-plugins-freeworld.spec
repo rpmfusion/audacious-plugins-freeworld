@@ -1,22 +1,27 @@
+%bcond_without meson
+
 %global aud_plugin_api %(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION[ ]\\+' %{_includedir}/libaudcore/plugin.h 2>/dev/null | sed 's!.*_AUD_PLUGIN_VERSION[ ]*\\([0-9]\\+\\).*!\\1!')
 %if 0%{aud_plugin_api} > 0
 %global aud_plugin_dep Requires: audacious(plugin-api)%{?_isa} = %{aud_plugin_api}
 %endif
 %{?aud_plugin_dep}
 
-Name:           audacious-plugins-freeworld
-Version:        4.3.1
-Release:        3%{?dist}
-Summary:        Additional plugins for the Audacious media player
-License:        GPLv3
+
+Name: audacious-plugins-freeworld
+Version: 4.4
+Release: 1%{?dist}
+Summary: Additional plugins for the Audacious media player
+License: GPLv3
 URL:            https://audacious-media-player.org/
 Source0:        https://distfiles.audacious-media-player.org/audacious-plugins-%{version}.tar.bz2
 
 BuildRequires:  audacious-devel >= %{version}
 BuildRequires:  gcc-c++
+BuildRequires:  meson
+BuildRequires:  make
 BuildRequires:  zlib-devel
 BuildRequires:  libxml2-devel
-BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt6Core)
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  gettext
 BuildRequires:  libbinio-devel
@@ -24,7 +29,7 @@ BuildRequires:  dbus-devel >= 0.60
 BuildRequires:  dbus-glib-devel >= 0.60
 # ffaudio plugin
 BuildRequires:  faad2-devel
-# we need to have configure detect atleast one audio output to make it happy
+# we need to have configure detect at least one audio output to make it happy
 BuildRequires:  alsa-lib-devel
 
 # require all the plugins
@@ -53,11 +58,69 @@ This is the plugin needed to play AAC audio files.
 
 %prep
 %autosetup -p1 -n audacious-plugins-%{version}
+%if %{without meson}
 sed -i '\,^.SILENT:,d' buildsys.mk.in
 sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
+%endif
 
 
 %build
+%if %{with meson}
+%meson \
+    -Daac=true \
+    -Dadplug=false \
+    -Dalsa=false \
+    -Damidiplug=false \
+    -Dampache=false \
+    -Daosd=false \
+    -Dbs2b=false \
+    -Dcdaudio=false \
+    -Dconsole=false \
+    -Dcoreaudio=false \
+    -Dcue=false \
+    -Dffaudio=false \
+    -Dfilewriter=false \
+    -Dfilewriter-flac=false \
+    -Dfilewriter-mp3=false \
+    -Dfilewriter-ogg=false \
+    -Dflac=false \
+    -Dgl-spectrum=false \
+    -Dgtk=false \
+    -Dhotkey=false \
+    -Djack=false \
+    -Dlirc=false \
+    -Dmac-media-keys=false \
+    -Dmms=false \
+    -Dmodplug=false \
+    -Dmoonstone=false \
+    -Dmpg123=false \
+    -Dmpris2=false \
+    -Dneon=false \
+    -Dnotify=false \
+    -Dopenmpt=false \
+    -Dopus=false \
+    -Doss=false \
+    -Dpulse=false \
+    -Dpipewire=false \
+    -Dqt=false \
+    -Dqtaudio=false \
+    -Dresample=false \
+    -Dscrobbler2=false \
+    -Dsdlout=false \
+    -Dsid=false \
+    -Dsndfile=false \
+    -Dsndio=false \
+    -Dsongchange=false \
+    -Dsoxr=false \
+    -Dspeedpitch=false \
+    -Dstreamtuner=false \
+    -Dvorbis=false \
+    -Dvumeter=false \
+    -Dwavpack=false
+
+%meson_build
+#%%{__meson} compile -C %%{_vpath_builddir} -j %%{_smp_build_ncpus} --verbose
+%else
 %configure \
         --disable-rpath \
         --disable-vorbis \
@@ -68,11 +131,23 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
         --disable-mms \
         --disable-opus
 %make_build -C src/aac
+%endif
 
 
 %install
+%if %{with meson}
+%meson_install
+rm -rf %{buildroot}%{_libdir}/audacious/Container
+rm -rf %{buildroot}%{_libdir}/audacious/Effect
+rm -rf %{buildroot}%{_libdir}/audacious/Transport
+pushd %{buildroot}%{_libdir}/audacious/Input
+shopt -s extglob
+rm !(aac-raw.so)
+popd
+rm -rf %{buildroot}%{_datadir}/locale/
+%else
 %make_install -C src/aac
-find %buildroot -type f -name "*.la" -exec rm -f {} ';'
+%endif
 
 
 %files
@@ -83,6 +158,10 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jul 06 2024 Sérgio Basto <sergio@serjux.com> - 4.4-1
+- Update to 4.4
+- Sync with Fedora and use Meson build system.
+
 * Sat Feb 03 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
