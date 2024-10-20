@@ -8,8 +8,8 @@
 
 
 Name: audacious-plugins-freeworld
-Version: 4.4
-Release: 2%{?dist}
+Version: 4.4.1
+Release: 1%{?dist}
 Summary: Additional plugins for the Audacious media player
 License: GPLv3
 URL:            https://audacious-media-player.org/
@@ -158,6 +158,9 @@ rm -rf %{buildroot}%{_datadir}/locale/
 
 
 %changelog
+* Sun Oct 20 2024 Sérgio Basto <sergio@serjux.com> - 4.4.1-1
+- Update audacious-plugins-freeworld to 4.4.1
+
 * Thu Aug 01 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
