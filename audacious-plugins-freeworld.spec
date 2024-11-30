@@ -8,7 +8,7 @@
 
 
 Name: audacious-plugins-freeworld
-Version: 4.4.1
+Version: 4.4.2
 Release: 1%{?dist}
 Summary: Additional plugins for the Audacious media player
 License: GPLv3
@@ -158,6 +158,9 @@ rm -rf %{buildroot}%{_datadir}/locale/
 
 
 %changelog
+* Sat Nov 30 2024 Sérgio Basto <sergio@serjux.com> - 4.4.2-1
+- Update audacious-plugins-freeworld to 4.4.2
+
 * Sun Oct 20 2024 Sérgio Basto <sergio@serjux.com> - 4.4.1-1
 - Update audacious-plugins-freeworld to 4.4.1
 
